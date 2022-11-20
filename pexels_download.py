@@ -14,7 +14,7 @@ print("Pexels Video Downloader\n")
 # Paths
 PATHS_SELECTED = [
     "./VideoLinks.txt",
-    "./Blocked Videos/BlockedVideoLinks.txt",
+    "./BlockedVideoLinks.txt",
     "./DownloadedVideoLinks.txt",
     "./BlockedVideoLinksLog.txt",
     "./InvalidVideoLinks.txt",
