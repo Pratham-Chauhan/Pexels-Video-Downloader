@@ -21,12 +21,12 @@ PATHS_SELECTED = [
 
 ]
 
-OUTPUT_PATH1 = "./Temporary"
-OUTPUT_PATH2 = "./Completed Videos"
+OUTPUT_PATH1 = "./Temporary" # Downloaded Videos
+OUTPUT_PATH2 = "./Completed Videos" # After adding comment or title in the downloaded videos
 
 # getting inputs from user
 res = input("Video Resolution to download (SD / HD / UHD / MAX)? ")
-orientation = input("Specific Video Orientations (V / H / S / X)? ")
+orientation = input("Specific Video Orientations (V / H / S / X)? ") # (Vertical / Horizontal / Square / All)
 title = input("Write Title in the Title section of the video (Y/N)? ")
 comment = input("Write Link in the Comments section of the video (Y/N)? ")
 # -------------------------- CONFIG END --------------------------
@@ -69,7 +69,7 @@ def extract_id(urls):
 urls = extract_id(urls)
 blocked_url = extract_id(blocked_url)
 
-urls = list(set(urls) - set(blocked_url))  # remove blocked url from urls
+urls = list(set(urls) - set(blocked_url))  # remove blocked urls from urls
 BlockedVideoLinksLog = list(set(urls) & set(blocked_url))
 # Save Blocked Links url id
 with open(PATHS_SELECTED[3], 'w') as f:
@@ -84,7 +84,7 @@ invalid = []
 
 def get_video_info(id_):
     headers = {
-        'Authorization': '563492ad6f9170000100000115f75ed96f2944c2ad48fb5ea96cb025'}
+        'Authorization': '563492ad6f9170000100000115f75ed96f2944c2ad48fb5ea96cb025'} # api key
     res = r.get(f'https://api.pexels.com/videos/videos/{id_}', headers=headers)
     if res.status_code == 200:
         mk_req.append(res)
@@ -120,11 +120,11 @@ def download(v_res, index):
     # Determine Video Orientation
     if not orientation.upper() == 'X':  # All
         v_orient = ''
-        if vv['width'] == vv['height']:
+        if vv['width'] == vv['height']: # Square
             v_orient = 'S'
-        elif vv['width']/vv['height'] < 1:
+        elif vv['width']/vv['height'] < 1: # Vertical
             v_orient = 'V'
-        else:
+        else: # Horizontal
             v_orient = 'H'
         # print(v_orient)
         if orientation.upper() != v_orient:
@@ -145,8 +145,7 @@ def download(v_res, index):
             print(
                 f'{res.upper()} resolution not found for this video, automatically choosing the max res.')
 
-    # video extension
-    file_type = vv['file_type'].split('/')[-1]
+    file_type = vv['file_type'].split('/')[-1] # video extension
 
     # Download video
     print(f"\n#{index}. {vid_url}")
@@ -167,11 +166,11 @@ def download(v_res, index):
         print("Unable to Download.")
         return
 
-    # adding title and comments
+    # adding title and comment using ffmpeg python 
     stream = ffmpeg.input(filepath1)
 
-    meta1 = name
-    meta2 = vid_url
+    meta1 = name # filename in Title 
+    meta2 = vid_url # video link in Comment
     if title.lower() == 'y':
 
         if comment.lower() == 'y':
