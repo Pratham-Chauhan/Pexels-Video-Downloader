@@ -5,23 +5,23 @@ import re
 import subprocess
 import ffmpeg
 
-subprocess.call(['pip', 'install', 'ffmpeg-python', 'requests'])
-os.system('cls')
+# subprocess.call(['pip', 'install', 'ffmpeg-python', 'requests'])
+# os.system('cls')
 print('======================================================================\n')
 print("Pexels Video Downloader v1\n")
 print('======================================================================\n')
 print()
 # -------------------------- CONFIG START --------------------------
-# Paths
+# Input Paths
 PATHS_SELECTED = [
     "./VideoLinks.txt",
-    "./BlockedVideoLinks.txt",
     "./DownloadedVideoLinks.txt",
     "./BlockedVideoLinksLog.txt",
     "./InvalidVideoLinks.txt",
 
 ]
 
+# Output Paths
 OUTPUT_PATH1 = "./Temporary" # Downloaded Videos
 OUTPUT_PATH2 = "./Completed Videos" # Downloaded videos + added comment or title
 
@@ -107,7 +107,8 @@ with open(PATHS_SELECTED[4], 'w') as f:
     f.write('\n'.join(invalid))
 
 
-print(f"\nLinks to Download: {len(mk_req)}")
+
+print(f"\n\nLinks to Download: {len(mk_req)}")
 print('----------------------------------------------------------------------\n\n')
 print('STARTED DOWNLOADING...\n\n')
 
@@ -200,8 +201,8 @@ date_t = datetime.datetime.strftime(today, "%Y-%m-%d %H:%M")
 
 print('\n======================================================================')
 print(
-    f'\n Successfully Downloaded {len(DownloadedVideoLinks)} Videos - {date_t}')
-print('======================================================================')
+    f'\n Successfully Downloaded {len(DownloadedVideoLinks)} Videos {date_t}')
+print('\n======================================================================')
 # Save Downlaod Links url
 with open(PATHS_SELECTED[2], 'w') as f:
     f.write('\n'.join(DownloadedVideoLinks))
