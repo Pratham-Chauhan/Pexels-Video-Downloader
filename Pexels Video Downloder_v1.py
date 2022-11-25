@@ -15,6 +15,7 @@ print()
 # Input Paths
 PATHS_SELECTED = [
     "./VideoLinks.txt",
+    "./BlockedVideoLinks.txt",
     "./DownloadedVideoLinks.txt",
     "./BlockedVideoLinksLog.txt",
     "./InvalidVideoLinks.txt",
@@ -50,6 +51,7 @@ with open(PATHS_SELECTED[0], 'r') as f:
 print()
 print(f"Links Found: {len(urls)}")
 print('----------------------------------------------------------------------\n')
+
 
 
 # read blocked url file
@@ -187,7 +189,7 @@ def download(v_res, index):
         stream = ffmpeg.output(stream, filepath2, loglevel="quiet",
                                metadata='comment='+meta2)
     else:
-        stream = ffmpeg.output(stream, filepath1, loglevel="quiet")
+        stream = ffmpeg.output(stream, filepath2, loglevel="quiet")
 
     ffmpeg.run(stream, overwrite_output=True)
 
